@@ -26,12 +26,10 @@ def main():
     parser.add_argument('--url', metavar='URL', required=True, help='input the url')
     args = parser.parse_args()
 
+    url = args.url
     output_file = path.join(path.dirname(__file__), 'wordcloud.png')
 
-    url = args.url
-
-    response = requests.get(url, timeout=15)
-    response.encoding = response.apparent_encoding
+    response = requests.get(url)
 
     origin_text = response.text
     origin_text = re.sub(ur'<script.*?>.*?</script>', '', origin_text, flags=re.I|re.M|re.DOTALL)

@@ -2,10 +2,10 @@
 
 ### 使用
 
-	$ python tryit.py <url>
+	$ python main.py --url <url>
 
 比如:
 
-	$ python tryit.py 'https://movie.douban.com/subject/1972698/'
+	$ python main.py --url 'https://movie.douban.com/subject/1972698/'
 
 ![example.png](example.png)
