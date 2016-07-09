@@ -9,3 +9,5 @@
 	$ python main.py --url 'https://movie.douban.com/subject/1972698/'
 
 ![example.png](example.png)
+
+stopwords.txt 来自 [WordCloud-CN](https://github.com/FantasRu/WordCloud-CN)
