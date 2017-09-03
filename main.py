@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 from os import path
-import sys
 import re
 import argparse
 
@@ -10,6 +11,7 @@ from wordcloud import WordCloud
 import jieba
 import requests
 from lxml import html
+
 
 def read_stopwords(file):
     stopwords = set()
@@ -20,6 +22,7 @@ def read_stopwords(file):
             stopwords.add(line.strip().decode('utf-8'))
     return stopwords
 stopwords = read_stopwords(path.join(path.dirname(__file__), 'stopwords.txt'))
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -32,17 +35,17 @@ def main():
     response = requests.get(url)
 
     origin_text = response.text
-    origin_text = re.sub(ur'<script.*?>.*?</script>', '', origin_text, flags=re.I|re.M|re.DOTALL)
-    origin_text = re.sub(ur'<style.*?>.*?</style>', '', origin_text, flags=re.I|re.M|re.DOTALL)
+    origin_text = re.sub(r'<script.*?>.*?</script>', '', origin_text, flags=re.I|re.M|re.DOTALL)
+    origin_text = re.sub(r'<style.*?>.*?</style>', '', origin_text, flags=re.I|re.M|re.DOTALL)
 
     doc = html.fromstring(origin_text)
     text = doc.xpath('//body//text()')
     text = [i.strip() for i in text if i.strip()]
-    text = u' '.join(text)
+    text = ' '.join(text)
 
     seg = jieba.cut(text)
     seg = [i.strip() for i in seg if i.strip() and not i.strip().isdigit() and i.strip() not in stopwords]
-    seg = u' '.join(seg)
+    seg = ' '.join(seg)
 
     wordcloud = WordCloud(font_path='simhei.ttf', background_color='black', margin=5, width=1800, height=800)
     wordcloud = wordcloud.generate(seg)
